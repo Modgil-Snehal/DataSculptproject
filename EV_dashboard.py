@@ -124,12 +124,13 @@ fig3.update_layout(paper_bgcolor='#0E1117' if mode == "Dark" else 'white', font_
 st.plotly_chart(fig3, use_container_width=True)
 
 # Plot: EV Makers on India Map
+# Fixing the Geo Map Display for India with Markers
 st.subheader("🗺️ EV Manufacturers Across Indian States", anchor="state-wise-electric-vehicle-distribution")
+
 ev_maker = ev_maker.iloc[:, :2]
 ev_maker.columns = ['State', 'EV_Maker']
 ev_maker['State'] = ev_maker['State'].str.title()
 
-# Manually assign lat/lon for each state with known EV makers
 state_coords = {
     'Maharashtra': [19.7515, 75.7139],
     'Tamil Nadu': [11.1271, 78.6569],
@@ -145,7 +146,7 @@ state_coords = {
 }
 
 coords_df = pd.DataFrame(state_coords.items(), columns=['State', 'Coords'])
-coords_df[['Lat', 'Lon']] = pd.DataFrame(coords_df['Coords'].to_list(), index=coords_df.index)
+coords_df[['Lat', 'Lon']] = pd.DataFrame(coords_df['Coords'].tolist(), index=coords_df.index)
 ev_map_data = pd.merge(ev_maker, coords_df[['State', 'Lat', 'Lon']], on='State', how='inner')
 
 fig_map = px.scatter_geo(
@@ -153,22 +154,29 @@ fig_map = px.scatter_geo(
     lat='Lat',
     lon='Lon',
     text='EV_Maker',
-    title='EV Manufacturers by State (Text Marker)',
-    template='plotly_dark' if mode == "Dark" else 'plotly_white'
+    scope='asia',
+    projection='natural earth',
+    title='EV Manufacturers by Indian State',
+    template='plotly_dark' if mode == "Dark" else 'plotly_white',
 )
+
 fig_map.update_geos(
-    center={"lat": 22.9734, "lon": 78.6569},
-    projection_scale=4.5,
+    visible=False,
+    fitbounds="locations",
+    lataxis_range=[6, 37],
+    lonaxis_range=[68, 98],
+    resolution=50,
     showcountries=True,
     showland=True,
     landcolor="#EAEAEA" if mode == "Light" else "#333"
 )
+
 fig_map.update_layout(
-    margin={"r":0,"t":30,"l":0,"b":0},
+    margin={"r": 0, "t": 50, "l": 0, "b": 0},
     paper_bgcolor='#0E1117' if mode == "Dark" else 'white'
 )
-st.plotly_chart(fig_map, use_container_width=True)
 
+st.plotly_chart(fig_map, use_container_width=True)
 # Comparison with Vehicle Class Data
 if show_vehicle_class:
     st.subheader("🔍 Vehicle Class Insights", anchor="vehicle-class-insights")
