@@ -90,7 +90,7 @@ show_vehicle_class = st.sidebar.checkbox("Show Vehicle Class Table", value=True)
 
 # Sidebar: Useful links
 with st.sidebar.expander("🔗 Links"):
-    st.markdown("- [Official Vehicle Data Source](https://vahan.parivahan.gov.in/vahan4dashboard/vahan/view/reportview.xhtml)")
+    st.markdown("- [Official Vehicle Data Source](https://vahan.parivahan.gov.in/vahan4dashboard/vahan/view/reportview.xhtml)(https://www.kaggle.com/datasets/srinrealyf/india-ev-market-data?resource=download)")
     st.markdown("- [GitHub Repository](https://github.com/yourusername/ev-market-dashboard)")
     st.markdown("- [Streamlit Documentation](https://docs.streamlit.io)")
 
@@ -153,16 +153,20 @@ fig_map = px.scatter_geo(
     lat='Lat',
     lon='Lon',
     text='EV_Maker',
+    hover_name='State',
     title='EV Manufacturers by State (Text Marker)',
     template='plotly_dark' if mode == "Dark" else 'plotly_white'
 )
 fig_map.update_geos(
+    scope="asia",
+    projection_type="natural earth",
     center={"lat": 22.9734, "lon": 78.6569},
-    projection_scale=4.5,
     showcountries=True,
     showland=True,
-    landcolor="#EAEAEA" if mode == "Light" else "#333"
+    landcolor="#EAEAEA" if mode == "Light" else "#333",
+    showsubunits=True,
 )
+fig_map.update_traces(marker=dict(size=10, color='blue'), mode='markers+text')
 fig_map.update_layout(
     margin={"r":0,"t":30,"l":0,"b":0},
     paper_bgcolor='#0E1117' if mode == "Dark" else 'white'
