@@ -1,7 +1,6 @@
-streamlit
-pandas
-matplotlib
-seaborn
-plotly
-json
-requests
+streamlit>=1.30.0
+pandas>=1.5.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.18.0
+requests>=2.31.0
