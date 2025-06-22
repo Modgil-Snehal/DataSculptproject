@@ -90,8 +90,9 @@ show_vehicle_class = st.sidebar.checkbox("Show Vehicle Class Table", value=True)
 
 # Sidebar: Useful links
 with st.sidebar.expander("🔗 Links"):
-    st.markdown("- [Official Vehicle Data Source](https://vahan.parivahan.gov.in/vahan4dashboard/vahan/view/reportview.xhtml)(https://www.kaggle.com/datasets/srinrealyf/india-ev-market-data?resource=download)")
-    st.markdown("- [GitHub Repository](https://github.com/yourusername/ev-market-dashboard)")
+    st.markdown("- [Official Vehicle Data Source](https://vahan.parivahan.gov.in/vahan4dashboard/vahan/view/reportview.xhtml)")
+    st.markdown("- [Secondary Data Source](https://www.kaggle.com/datasets/srinrealyf/india-ev-market-data?resource=download)")
+    st.markdown("- [GitHub Repository](https://github.com/Modgil-Snehal/DataSculptproject.git)")
     st.markdown("- [Streamlit Documentation](https://docs.streamlit.io)")
 
 st.sidebar.markdown("---")
